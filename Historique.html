@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Historique des transactions</title>
+    <style>
+      body {
+        background: #000;
+        color: #fff;
+        font-family: Arial, sans-serif;
+      }
+      #transactions {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin: 50px;
+      }
+      .transaction {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 30%;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 10px;
+      }
+      label {
+        margin-bottom: 10px;
+        font-size: 20px;
+      }
+      span {
+        font-size: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Historique des transactions</h1>
+    <div id="transactions">
+      <div class="transaction">
+        <label for="receiver">Receiver :</label>
+        <span id="receiver"></span>
+      </div>
+      <div class="transaction">
+        <label for="amount">Montant en XTZ :</label>
+        <span id="amount"></span>
+      </div>
+      <div class="transaction">
+        <label for="date">Date :</label>
+        <span id="date"></span>
+        <a href="Historique.html">Go to Page 3</a>
+      </div>
+    </div>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      document.getElementById("receiver").innerHTML = params.get("receiver");
+      document.getElementById("amount").innerHTML = params.get("amount");
+      document.getElementById("date").innerHTML = new Date().toLocaleString();
+    </script>
+  </body>
+</html>

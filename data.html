@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Page avec formulaire d'envoi de transaction</title>
+    <style>
+      body {
+        background: #000;
+      }
+      video {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        z-index: -100;
+        transform: translateX(-50%) translateY(-50%);
+        background-size: cover;
+      }
+      #form-wrapper {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        z-index: 1;
+        color: #fff;
+      }
+      form {
+        display: inline-block;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 10px;
+      }
+      label {
+        display: block;
+        margin-bottom: 10px;
+      }
+      input[type="text"], input[type="number"], input[type="submit"] {
+        display: block;
+        margin: 10px auto;
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        width: 100%;
+        max-width: 400px;
+        font-size: 16px;
+      }
+      input[type="submit"] {
+        background: #007bff;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      input[type="submit"]:hover {
+        background: #0069d9;
+      }
+    </style>
+  </head>
+  <body>
+    <video autoplay loop muted poster="poster.jpg">
+      <source src="C:\Users\moms2\OneDrive\Images\338221132_6271943282863448_7242551690733468327_n.mp4" type="video/mp4">
+    </video>
+    <div id="form-wrapper">
+      <h1>Formulaire d'envoi de transaction</h1>
+      <form id="transaction-form">
+        <label for="receiver">Receiver :</label>
+        <input type="text" id="receiver" name="receiver" required><br><br>
+        <label for="somme">Somme en XTZ :</label>
+        <input type="number" id="somme" name="somme" required><br><br>
+        <input type="submit" value="Envoyer">
+      </form>
+    </div>
+    <script>
+      const transactionForm = document.getElementById("transaction-form");
+      transactionForm.addEventListener("submit", function(e) {
+        e.preventDefault(); // empêche l'envoi normal du formulaire
+        const amount = document.getElementById("somme").value;
+        const receiver = document.getElementById("receiver").value;
+        const redirectUrl = `Historique.html?receiver=${receiver}&amount=${amount}`;
+        window.location.href = redirectUrl;
+      });
+    </script>
+  </body>
+</html>

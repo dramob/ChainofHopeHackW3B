@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Page avec vidéo de fond</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+      }
+      #video-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100%;
+        min-width: 100%;
+        z-index: -1;
+      }
+      #content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+      }
+      #faire-transaction {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 20px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <video autoplay muted loop id="video-background">
+      <source src="C:\Users\moms2\OneDrive\Images\10000000_6211065772287248_5559500910902177185_n.mp4" type="video/mp4">
+    </video>
+    <div id="content">
+      <h1> Celui qui cache sa générosité est doublement généreux</h1>
+      <button id="faire-transaction">Faire une transaction</button>
+      <div data={styles.navLinks}></div>
+      <a href="data.html">Go to Page 2</a>
+
+    </div>
+    <script>
+      const button = document.getElementById("faire-transaction");
+      button.addEventListener("click", function() {
+        // Code pour lancer la transaction
+      });
+    </script>
+  </body>
+</html>
