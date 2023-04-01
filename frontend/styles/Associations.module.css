@@ -1,0 +1,10 @@
+.subNavbar {
+    display: flex;
+    justify-content: space-around;
+    background-color: #f7f7f7; /* Vous pouvez changer la couleur d'arrière-plan si nécessaire */
+    padding: 0.5rem 1rem;
+    font-family: 'Roboto', sans-serif;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 1rem;
+  }
+  

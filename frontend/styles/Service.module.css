@@ -1,0 +1,19 @@
+.servicesList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .chat {
+    border: 1px solid #e0e0e0;
+    padding: 1rem;
+    border-radius: 5px;
+  }
+  
+  .messages {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+  }
+  
