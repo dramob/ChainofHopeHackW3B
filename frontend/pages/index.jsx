@@ -11,7 +11,7 @@ export default function Home() {
   };
 
   return (
-    <div className={styles.container}>
+    <div className="flex items-center justify-center h-screen">
       <video
         autoPlay
         muted
@@ -20,13 +20,13 @@ export default function Home() {
         src="/videoacceuil.mp4"
         type="video/mp4"
       />
-      <div className={styles.content}>
+      <div className="text-center">
         <Header
           title="Celui qui cache sa générosité est doublement généreux"
           subtitle="Bienvenue sur notre site !"
         />
         <button
-          className={styles.fairetransaction}
+          className="bg-blue-500 text-white px-4 py-2 rounded mt-4 hover:bg-blue-700"
           onClick={handleDonationClick}
         >
           Faire un don
@@ -35,3 +35,5 @@ export default function Home() {
     </div>
   );
 }
+
+
