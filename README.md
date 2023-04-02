@@ -14,4 +14,4 @@ L'experience utilisateur  nécessite l'installation de @beacon/wallet
 Intégration du contrat dans le composant Projets
 Pour interagir avec le contrat depuis le composant Projets, il faut importer les fonctions connectWallet, getActiveAccount et disconnectWallet. Ensuite, il faut utiliser la méthode mint du contrat pour émettre des jetons à l'adresse du destinataire lors de la soumission du formulaire.
 
-La fonction handleSubmit doit être modifiée pour intégrer l'appel au contrat :
+!!!!!! la version à recuperer est plus ancienne que le dernier commit; il s'agit de celle du commit de 11 heures.
