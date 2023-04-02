@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import styles from '../styles/Service.module.css';
-
+import { App3 } from './burn';
 const services = [
-  { id: 1, name: 'Service 1', company: 'Entreprise A', cost: 100, averageRating: 0, ratingCount: 0 },
-  { id: 2, name: 'Service 2', company: 'Entreprise B', cost: 200, averageRating: 0, ratingCount: 0 },
-  { id: 3, name: 'Service 3', company: 'Entreprise C', cost: 300, averageRating: 0, ratingCount: 0 },
+  { id: 1, name: 'Service 1', company: 'Entreprise A', cost: 100 },
+  { id: 2, name: 'Service 2', company: 'Entreprise B', cost: 200 },
+  { id: 3, name: 'Service 3', company: 'Entreprise C', cost: 300 },
 ];
-export default function Services() {
+const mintaddress='KT1QmxPiDY1rYyfQUE249P4NDeHHWhTbGjT8';
+export default function Services(address) {
   const [selectedService, setSelectedService] = useState(null);
   const [confirming, setConfirming] = useState({ show: false, serviceId: null });
   const [rating, setRating] = useState({ show: false, serviceId: null });
@@ -14,19 +15,16 @@ export default function Services() {
   const handleServiceClick = (id) => {
     setSelectedService(id);
   };
-  const [currentRating, setCurrentRating] = useState(0);
 
-  const handleMouseEnter = (ratingValue) => {
-    setCurrentRating(ratingValue);
-  };
   const showConfirmation = (serviceId) => {
     setConfirming({ show: true, serviceId });
   };
 
   const handleConfirmationYes = () => {
-    burnTokens(confirming.serviceId);
+    const selectedServiceObj = services.find(service => service.id === selectedService);
     setConfirming({ show: false, serviceId: null });
     setRating({ show: true, serviceId: selectedService });
+    new App3("https://ghostnet.ecadinfra.com/").burn(address, `${selectedServiceObj.cost}`, mintaddress);
   };
 
   const handleConfirmationNo = () => {
@@ -34,60 +32,30 @@ export default function Services() {
   };
 
   const handleRating = (ratingValue) => {
-    const serviceIndex = services.findIndex(service => service.id === selectedService);
-    const service = services[serviceIndex];
-    service.ratingCount += 1;
-    service.averageRating = ((service.averageRating * (service.ratingCount - 1)) + ratingValue) / service.ratingCount;
-
-    // Mettre à jour le service dans le tableau
-    const newServices = [...services];
-    newServices[serviceIndex] = service;
-    setSelectedService(null);
-
+    // Ici, vous pouvez traiter la valeur de la note sélectionnée
     console.log(`Note donnée : ${ratingValue}`);
     setRating({ show: false, serviceId: null });
-    const renderStars = () => {
-      const stars = [];
-  
-      for (let i = 1; i <= 5; i++) {
-        stars.push(
-          <a
-            key={i}
-            onClick={() => handleRating(i)}
-            onMouseEnter={() => handleMouseEnter(i)}
-            onMouseLeave={handleMouseLeave}
-            title={`Donner ${i} étoiles`}
-            className={i <= currentRating ? styles.filled : ''}
-          >
-            ☆
-          </a>
-        );
-      }
-      return stars;
-    };
-  
   };
+
   return (
-    <div className="p-8">
-    <h1 className="text-2xl font-bold mb-4">Les Services</h1>
-    <div className="flex space-x-4 mb-8">
-      {services.map((service) => (
-        <button
-        key={service.id}
-        onClick={() => handleServiceClick(service.id)}
-        className="bg-blue-500 text-black px-4 py-2 rounded hover:bg-blue-700"
-      >
-        {service.name} - {service.cost}COH - {service.averageRating.toFixed(1)}☆
-      </button>
-      
-      ))}
-    </div>
-    {selectedService && (
-      <div className="bg-red-100 p-4 rounded">
-          
+      <div className="p-8">
+        <h1 className="text-2xl font-bold mb-4">Les Services</h1>
+        <div className="flex space-x-4 mb-8">
+          {services.map((service) => (
+            <button
+              key={service.id}
+              onClick={() => handleServiceClick(service.id)}
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
+            >
+              {service.name} - {service.cost}€
+            </button>
+          ))}
+        </div>
+        {selectedService && (
+          <div className="bg-gray-100 p-4 rounded">
           <button
             onClick={() => showConfirmation(selectedService)}
-            className="bg-red-500 text-black px-4 py-2 rounded hover:bg-red-700 mt-4"
+            className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700 mt-4"
           >
             Brûler des tokens
           </button>
@@ -97,13 +65,13 @@ export default function Services() {
               <div className="flex space-x-4 mt-4">
                 <button
                   onClick={handleConfirmationYes}
-                  className="bg-grey-500 text-red px-4 py-2 rounded hover:bg-green-700"
+                  className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700"
                 >
                   Oui
                 </button>
                 <button
                   onClick={handleConfirmationNo}
-                  className="bg-red-500 text-black px-4 py-2 rounded hover:bg-red-700"
+                  className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700"
                 >
                   Non
                 </button>
@@ -129,4 +97,3 @@ export default function Services() {
     
     function burnTokens(serviceId) {
     }
-     

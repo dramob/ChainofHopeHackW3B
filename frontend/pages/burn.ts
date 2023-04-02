@@ -1,8 +1,8 @@
 import { TezosToolkit } from '@taquito/taquito';
 import { InMemorySigner } from '@taquito/signer';
-import { connectWallet } from '../../utils/wallet';
+import { connectWallet } from '../utils/wallet';
 
-export class App {
+export class App3 {
     private tezos: TezosToolkit;
     private rpcUrl: string;
 
@@ -11,18 +11,18 @@ export class App {
        // this.tezos.setWalletProvider(await connectWallet());
     }
 
-    public async mint(recipient: string, mintAmount: string, contract: string) {
+    public async burn(recipient: string, mintAmount: string, contract: string) {
         this.tezos.setWalletProvider(await  (await connectWallet()).wallet)
         /* tslint:disable-next-line */
-        const address=(await connectWallet()).address;
+        const address3=(await connectWallet()).address;
         
         this.tezos.wallet
             .at(contract)
             .then((contract) => {
-                console.log(contract.methods.mint);
-                console.log(`Minting ${mintAmount} tokens for ${recipient}...`);
+                console.log(contract.methods.burn);
+                console.log(`Burning ${mintAmount} tokens for ${recipient}...`);
                 
-                return contract.methods.mint( mintAmount ,address ).send();
+                return contract.methods.burn( mintAmount ,address3 ).send();
             })
             .then((op) => {
                 console.log(`Awaiting for ${op.opHash} to be confirmed...`);

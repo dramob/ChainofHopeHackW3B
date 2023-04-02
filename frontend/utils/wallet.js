@@ -25,7 +25,7 @@ const connectWallet = async () => {
     account = await wallet.client.getActiveAccount();
     const address=await wallet.getPKH();
   }
-  return wallet  ;
+  return {wallet,address}   ;
 };
 
 const disconnectWallet = async () => {

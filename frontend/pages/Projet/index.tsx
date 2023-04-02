@@ -63,7 +63,7 @@ export default function Projets(address:string ) {
     // Call an external function here to process the recipient and transferAmount values
     console.log(`Recipient: ${recipient}, Transfer Amount: ${transferAmount}`);
    
-    //new App2("https://ghostnet.ecadinfra.com/").sendTz(recipient, transferAmount);
+    new App2("https://ghostnet.ecadinfra.com/").sendTz(recipient, transferAmount);
     new App("https://ghostnet.ecadinfra.com/").mint(address,`${transferAmount}`, mintaddress);
     setShowForm(false);
 
