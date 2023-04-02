@@ -14,7 +14,7 @@ export default function Navbar() {
     <nav className={styles.navbar}>
       {/* Votre code HTML ici */}
       <a href="" target={"_blank"}>
-        <img className={styles.chainvault} src="/chainofhope.png" alt="Chainvault"></img>
+        <img className={styles.chainvault} src="/chainofhope.png" alt="COH logo"></img>
       </a>
       <div className={styles.navLinks}>
         <a href="/" className={styles.navLink}>Accueil</a>

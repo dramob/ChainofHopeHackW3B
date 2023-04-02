@@ -16,4 +16,10 @@
     overflow-y: auto;
     margin-bottom: 1rem;
   }
+  .rating {
+    cursor: pointer;
+  }
   
+  .filled {
+    color: gold;
+  }

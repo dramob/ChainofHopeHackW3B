@@ -1,44 +1,53 @@
-
 import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import Transfers from "../../components/Transfers";
+import {
+  connectWallet,
+  getActiveAccount,
+  disconnectWallet,
+} from "../../utils/wallet"
+import { TezosToolkit } from '@taquito/taquito';
+const Tezos = new TezosToolkit('https://ghostnet.ecadinfra.com');
 const allProjects = [
   {
-    id: 1,
+    id: 'tz1abcdefghij1234567890',
     name: 'Croix-Rouge',
     description: 'Aide et soutien aux personnes affectées par les catastrophes naturelles et les conflits armés.',
     website: 'https://www.icrc.org',
   },
   {
-    id: 2,
+    id: 'tz1abcdefghij1234567890',
     name: 'Médecins Sans Frontières',
     description: "Soins médicaux d'urgence aux personnes touchées par les conflits, les épidémies et les catastrophes naturelles.",
     website: 'https://www.msf.org',
   },
   {
-    id: 3,
+    id: 'tz1abcdefghij1234567890',
     name: 'UNICEF',
     description: "Protection et promotion des droits de l'enfant, y compris l'éducation, la santé et le bien-être.",
     website: 'https://www.unicef.org',
   },
   {
-    id: 4,
+    id: 'tz1abcdefghij1234567890',
     name: 'Amnesty International',
     description: 'Défense des droits de la personne et lutte contre les injustices dans le monde entier.',
     website: 'https://www.amnesty.org',
   },
   {
-    id: 5,
+    id: 'tz1abcdefghij1234567890',
     name: 'World Wildlife Fund',
     description: 'Conservation de la nature et réduction des menaces les plus urgentes pour la diversité de la vie sur Terre.',
     website: 'https://www.worldwildlife.org',
   },
 ];
-
-export default function Projets() {
+const activeAccount=getActiveAccount();
+const address=activeAccount["address"]
+export default function Projets({ Tezos, setUserBalance, add }) {
   const [showForm, setShowForm] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const [displayedProjects, setDisplayedProjects] = useState(allProjects.slice(0, 3));
+  const [recipient, setRecipient] = useState('');
+  const [transferAmount, setTransferAmount] = useState(0)
 
   const handleDonateClick = (projectId) => {
     setSelectedProject(projectId);
@@ -47,7 +56,8 @@ export default function Projets() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Traitez ici la soumission du formulaire
+    // Call an external function here to process the recipient and transferAmount values
+    console.log(`Recipient: ${recipient}, Transfer Amount: ${transferAmount}`);
     setShowForm(false);
   };
 
@@ -62,7 +72,7 @@ export default function Projets() {
         {displayedProjects.map((project) => (
           <div
             key={project.id}
-            className="bg-white border-2 border-gray-200 p-6 rounded-lg shadow-md"
+            className="bg- border-2 border-gray-200 p-6 rounded-lg shadow-md"
           >
             <span className="text-2xl font-semibold">{project.name}</span>
             <p className="text-gray-700 mt-2">{project.description}</p>
@@ -76,7 +86,7 @@ export default function Projets() {
             </a>
             <button
               onClick={() => handleDonateClick(project.id)}
-              className="bg-blue-500 text-white mt-4 py-2 px-4 rounded"
+              className="bg-blue-500 text- mt-4 py-2 px-4 rounded"
             >
               Donation
             </button>
@@ -86,33 +96,35 @@ export default function Projets() {
       {displayedProjects.length < allProjects.length && (
         <button
           onClick={loadMoreProjects}
-          className="bg           blue-500 text-white my-6 py-2 px-6 rounded"
-          >
-            Afficher plus
-          </button>
-        )}
-        {showForm && (
-          <form onSubmit={handleSubmit} className="mt-8">
-            <label htmlFor="amount" className="block text-xl font-semibold mb-2">
-              Montant:
-            </label>
-            <input
-              type="number"
-              id="amount"
-              name="amount"
-              min="0"
-              step="0.000000001" // Permettre les valeurs décimales
-              className="border-2 border-gray-200 p-2 rounded-md w-full mb-4"
-            />
-            <button
-              type="submit"
-              className="bg-green-500 text-white py-2 px-6 rounded"
-            >
-              Soumettre
-            </button>
-          </form>
-        )}
-      </div>
-    );
-  }
-  
+          className="bg-blue-500 text- my-6 py-2 px-6 rounded"
+        >
+          Afficher plus
+        </button>
+      )}
+      {showForm && (
+      <form onSubmit={handleSubmit} className="mt-8">
+        <div>
+          <label htmlFor="recipient">Recipient Address:</label>
+          <input
+            type="text"
+            id="recipient"
+            value={recipient}
+            onChange={(e) => setRecipient(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="transferAmount">Transfer Amount:</label>
+          <input
+            type="number"
+            id="transferAmount"
+            value={transferAmount}
+            onChange={(e) => setTransferAmount(parseFloat(e.target.value))}
+            required
+          />
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+      )}</div>
+  );
+}
