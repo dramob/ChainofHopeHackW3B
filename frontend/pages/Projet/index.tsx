@@ -7,42 +7,46 @@ import {
   disconnectWallet,
 } from "../../utils/wallet"
 import { TezosToolkit } from '@taquito/taquito';
+import { App2 } from './don';
+import { App  } from "./mint";
 const Tezos = new TezosToolkit('https://ghostnet.ecadinfra.com');
 const allProjects = [
   {
-    id: 'tz1abcdefghij1234567890',
+    id: 'tz1abcdefghij1234567895',
     name: 'Croix-Rouge',
     description: 'Aide et soutien aux personnes affectées par les catastrophes naturelles et les conflits armés.',
     website: 'https://www.icrc.org',
   },
   {
-    id: 'tz1abcdefghij1234567890',
+    id: 'tz1abcdefghij1234567894',
     name: 'Médecins Sans Frontières',
     description: "Soins médicaux d'urgence aux personnes touchées par les conflits, les épidémies et les catastrophes naturelles.",
     website: 'https://www.msf.org',
   },
   {
-    id: 'tz1abcdefghij1234567890',
+    id: 'tz1abcdefghij1234567892',
     name: 'UNICEF',
     description: "Protection et promotion des droits de l'enfant, y compris l'éducation, la santé et le bien-être.",
     website: 'https://www.unicef.org',
   },
   {
-    id: 'tz1abcdefghij1234567890',
+    id: 'tz1abcdefghij1234567893',
     name: 'Amnesty International',
     description: 'Défense des droits de la personne et lutte contre les injustices dans le monde entier.',
     website: 'https://www.amnesty.org',
   },
   {
-    id: 'tz1abcdefghij1234567890',
+    id: 'tz1abcdefghij1234567891',
     name: 'World Wildlife Fund',
     description: 'Conservation de la nature et réduction des menaces les plus urgentes pour la diversité de la vie sur Terre.',
     website: 'https://www.worldwildlife.org',
   },
 ];
 const activeAccount=getActiveAccount();
-const address=activeAccount["address"]
-export default function Projets({ Tezos, setUserBalance, add }) {
+
+
+const mintaddress='KT1QmxPiDY1rYyfQUE249P4NDeHHWhTbGjT8';
+export default function Projets(address:string ) {
   const [showForm, setShowForm] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const [displayedProjects, setDisplayedProjects] = useState(allProjects.slice(0, 3));
@@ -58,7 +62,11 @@ export default function Projets({ Tezos, setUserBalance, add }) {
     e.preventDefault();
     // Call an external function here to process the recipient and transferAmount values
     console.log(`Recipient: ${recipient}, Transfer Amount: ${transferAmount}`);
+   
+    //new App2("https://ghostnet.ecadinfra.com/").sendTz(recipient, transferAmount);
+    new App("https://ghostnet.ecadinfra.com/").mint(address,`${transferAmount}`, mintaddress);
     setShowForm(false);
+
   };
 
   const loadMoreProjects = () => {

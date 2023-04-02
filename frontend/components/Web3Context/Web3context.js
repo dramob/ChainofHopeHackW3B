@@ -3,7 +3,7 @@ import styles from "../../styles/Navbar.module.css";
 import {
   connectWallet,
   getActiveAccount,
-  disconnectWallet,
+  disconnectWallet,wallet
 } from "../../utils/wallet";
 
 // 2. Créez un contexte

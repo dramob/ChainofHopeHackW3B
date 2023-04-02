@@ -2,7 +2,7 @@ import { TezosToolkit } from "@taquito/taquito";
 import { BeaconWallet } from "@taquito/beacon-wallet";
 import config from "../config";
 
-const preferredNetwork = "Ghostnet";
+const preferredNetwork = "ghostnet";
 const options = {
   name: "NFT",
   iconUrl: "https://tezostaquito.io/img/favicon.png",
@@ -23,8 +23,9 @@ const connectWallet = async () => {
       network: { type: preferredNetwork },
     });
     account = await wallet.client.getActiveAccount();
+    const address=await wallet.getPKH();
   }
-  return { success: true, wallet: account.address };
+  return wallet  ;
 };
 
 const disconnectWallet = async () => {

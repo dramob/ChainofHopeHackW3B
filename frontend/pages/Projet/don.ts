@@ -1,7 +1,10 @@
 // src/app.ts
 import { TezosToolkit } from '@taquito/taquito';
 import { InMemorySigner } from '@taquito/signer';
-
+import {WalletProvider} from '../../components/Web3Context/Web3context';
+import { connectWallet,
+    getActiveAccount,
+    disconnectWallet}  from '../../utils/wallet';
 export class App2 {
     private tezos: TezosToolkit;
     private rpcUrl: string;
@@ -9,16 +12,18 @@ export class App2 {
     constructor(rpcUrl: string) {
         this.rpcUrl = rpcUrl
         this.tezos = new TezosToolkit(rpcUrl);
-        this.tezos.setSignerProvider(new InMemorySigner('YOUR_PRIVATE_KEY'))
+        
+        
     }
 
-    public sendTz(address: string, amount: number) {
+    public async sendTz(address: string, amount: number) {
+        this.tezos.setWalletProvider(await  connectWallet())
         console.log(`Transfering ${amount} ꜩ to ${address}...`);
 
-        this.tezos.contract.transfer({ to: address, amount: amount })
+        this.tezos.wallet.transfer({ to: address, amount: amount }).send()
             .then(op => {
-                console.log(`Waiting for ${op.hash} to be confirmed...`);
-                return op.confirmation(1).then(() => op.hash);
+                console.log(`Waiting for ${op.opHash} to be confirmed...`);
+                return op.confirmation(1).then(() => op.opHash);
             })
             .then(hash => console.log(`${hash}`))
             .catch(error => console.log(`Error: ${error} ${JSON.stringify(error, null, 2)}`));
